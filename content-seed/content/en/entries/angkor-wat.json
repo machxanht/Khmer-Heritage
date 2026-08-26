@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "1.0",
+  "id": "kh-angkor-wat",
+  "slug": "angkor-wat",
+  "type": "temple",
+  "categoryId": "temples-monuments",
+  "languages": ["en", "km"],
+  "title": { "en": "Angkor Wat", "km": "អង្គរវត្ត" },
+  "summary": {
+    "en": "The largest religious monument in the world, built in the early 12th century under King Suryavarman II and the supreme symbol of Khmer architecture.",
+    "km": "ប្រាសាទហិណ្ឌុធំបំផុតក្នុងលោក សាងសង់នៅដើមសតវត្សទី១២ ក្នុងរជ្ជកាលព្រះបាទសូរ្យវរ្ម័នទី២ ជានិមិត្តរូបកំពូលនៃស្ថាបត្យកម្មខ្មែរ។"
+  },
+  "tags": ["unesco-world-heritage", "12th-century", "hindu", "suryavarman-ii"],
+  "coverAssetId": "img-angkor-wat-cover",
+  "sections": [
+    {
+      "id": "overview",
+      "title": { "en": "Overview", "km": "ទូទៅ" },
+      "blocks": [
+        {
+          "blockType": "paragraph",
+          "text": {
+            "en": "Angkor Wat was constructed c. 1113–1150 CE as the state temple of King Suryavarman II, originally dedicated to Vishnu. Unlike most Angkorian temples it faces west, and its five lotus-bud towers form an intentional miniature of Mount Meru, the cosmic home of the gods.",
+            "km": "អង្គរវត្តត្រូវបានសាងសង់នៅចន្លោះឆ្នាំ ១១១៣–១១៥០ ជាប្រាសាទរដ្ឋនៃព្រះបាទសូរ្យវរ្ម័នទី២ ដើម្បីឧទ្ទិសដល់ព្រះវិស្ណុ។ ខុសពីប្រាសាទអង្គរភាគច្រើន វាទទួលមុខទិសខាងលិច ហើយប៉មទាំង៥រូបរាងកញ្ឆេស្តា តំណាងឱ្យភ្នំមេរុ គ្រឹះលោកនៃទេវតា។"
+          }
+        },
+        {
+          "blockType": "keyFacts",
+          "facts": [
+            { "id": "built", "label": { "en": "Built" }, "value": { "en": "c. 1113–1150 CE", "km": "ប្រហែល ១១១៣–១១៥០" } },
+            { "id": "king", "label": { "en": "Commissioned by" }, "value": { "en": "Suryavarman II", "km": "ព្រះបាទសូរ្យវរ្ម័នទី២" } },
+            { "id": "dedication", "label": { "en": "Original dedication" }, "value": { "en": "Vishnu (Hindu)", "km": "ព្រះវិស្ណុ (ហិណ្ឌូ)" } },
+            { "id": "area", "label": { "en": "Temple complex area" }, "value": { "en": "c. 162.6 hectares", "km": "ប្រហែល ១៦២,៦ ហិកតា" } },
+            { "id": "unesco", "label": { "en": "UNESCO status" }, "value": { "en": "Inscribed 1992 (Angkor site)", "km": "ចុះបញ្ជីឆ្នាំ ១៩៩២ (ប្រវត្តិស្ថានអង្គរ)" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": { "en": "Architecture", "km": "ស្ថាបត្យកម្ម" },
+      "blocks": [
+        {
+          "blockType": "paragraph",
+          "text": {
+            "en": "The temple is famed for its bas-reliefs — nearly 2,000 apsara carvings and almost 800 metres of narrative galleries depicting the Battle of Kurukshetra, the Churning of the Ocean of Milk and Suryavarman II's court.",
+            "km": "ប្រាសាទនេះល្បីល្បាញខាងចម្លាក់លៀន ដែលមានអប្សរាជាង ២.០០០រូប និងរនាំងនិទានចម្ងាយជិត ៨០០ម៉ែត្រ បង្ហាញសមរភូមិគុរុក្សេត្រ ការកួរសមុទ្រទឹកដោះ និងរាជសំណើតព្រះបាទសូរ្យវរ្ម័នទី២។"
+          }
+        },
+        {
+          "blockType": "gallery",
+          "assetIds": ["img-angkor-wat-g01", "img-angkor-wat-g02"],
+          "caption": { "en": "Placeholder gallery — verified photography pending licensing review.", "km": "វិចិត្រសាលបណ្ដោះអាសន្ន — រង់ចាំការពិនិត្យរដ្ឋប្បវេណី។" }
+        }
+      ]
+    },
+    {
+      "id": "history-timeline",
+      "title": { "en": "Key dates", "km": "ថ្ងៃសំខាន់ៗ" },
+      "blocks": [
+        {
+          "blockType": "timeline",
+          "events": [
+            { "period": "c. 1113–1150", "text": { "en": "Built as state temple under Suryavarman II.", "km": "សាងសង់ជាប្រាសាទរដ្ឋក្នុងរជ្ជកាលសូរ្យវរ្ម័នទី២។" } },
+            { "period": "14th–16th c.", "text": { "en": "Gradually transformed into a Theravada Buddhist temple.", "km": "បន្តិចម្តងៗក្លាយជាប្រាសាទពុទ្ធសាសនាថេរវាទ។" } },
+            { "period": "1860", "text": { "en": "Henri Mouhot's account popularises the site in Europe.", "km": "កំណត់ហេតុរបស់អាន់រី មូហោ ធ្វើឱ្យតំបន់នេះល្បីក្នុងទ្វីបអឺរ៉ុប។" } },
+            { "period": "1992", "text": { "en": "Angkor inscribed on the UNESCO World Heritage List.", "km": "អង្គរចុះបញ្ជីមរតកពិភពលោក UNESCO។" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "location",
+      "title": { "en": "Location", "km": "ទីតាំង" },
+      "blocks": [
+        { "blockType": "mapPoint", "lat": 13.4125, "lng": 103.867, "zoom": 14, "label": { "en": "Angkor Wat, Siem Reap", "km": "អង្គរវត្ត សៀមរាប" } }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "unesco-whc-angkor",
+      "title": "Angkor",
+      "publisher": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/668/",
+      "dateAccessed": "2026-08-26"
+    },
+    {
+      "id": "apsara-angkor-wat",
+      "title": "Angkor Wat — APSARA National Authority",
+      "publisher": "APSARA National Authority",
+      "url": "https://www.apsaraauthority.gov.kh/",
+      "dateAccessed": "2026-08-26"
+    }
+  ],
+  "license": {
+    "code": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "attribution": {
+      "en": "Text adapted from UNESCO World Heritage Centre documentation.",
+      "km": "អត្ថបទដកស្រង់ផ្នែកខ្លះពីឯកសារ UNESCO World Heritage Centre។"
+    },
+    "notes": "Media assets are project-original placeholders pending licensed photography."
+  },
+  "related": [{ "entryId": "kh-bayon", "relation": "see-also" }],
+  "credits": [{ "name": "KHMER HERITAGE editorial team", "role": "author" }],
+  "status": "PUBLISHED",
+  "featuredOrder": 1,
+  "publishedAt": "2026-08-26T00:00:00Z",
+  "updatedAt": "2026-08-26T00:00:00Z",
+  "revision": 1
+}

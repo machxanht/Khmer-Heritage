@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0",
+  "id": "kh-bayon",
+  "slug": "bayon",
+  "type": "temple",
+  "categoryId": "temples-monuments",
+  "languages": ["en"],
+  "title": { "en": "Bayon", "km": "ប្រាសាទបាយ័ន" },
+  "summary": {
+    "en": "The state temple of Jayavarman VII at the centre of Angkor Thom, famous for its serene smiling stone faces.",
+    "km": "ប្រាសាទរដ្ឋនៃព្រះបាទជ័យវរ្ម័នទី៧ នៅកណ្ដាលអង្គរធំ ល្បីដោយព្រះផៃ្ងថ្មញញឹម។"
+  },
+  "tags": ["12th-century", "buddhist", "jayavarman-vii"],
+  "sections": [
+    {
+      "id": "overview",
+      "title": { "en": "Overview" },
+      "blocks": [
+        {
+          "blockType": "paragraph",
+          "text": {
+            "en": "Draft stub entry used to demonstrate the REVIEW status gate: it must never appear in manifest.json or search results until approved and published."
+          }
+        }
+      ]
+    }
+  ],
+  "sources": [],
+  "license": {
+    "code": "UNKNOWN",
+    "notes": "Stub — sources and license pending verification (docs/LICENSING.md gate)."
+  },
+  "related": [{ "entryId": "kh-angkor-wat", "relation": "see-also" }],
+  "status": "REVIEW",
+  "publishedAt": null,
+  "updatedAt": "2026-08-26T00:00:00Z",
+  "revision": 1
+}

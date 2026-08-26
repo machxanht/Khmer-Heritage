@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0",
+  "language": "km",
+  "revision": 1,
+  "generatedAt": "2026-08-26T00:00:00Z",
+  "categories": [
+    { "id": "temples-monuments", "slug": "temples-monuments", "order": 1,
+      "title": { "km": "ប្រាសាទនិងសំណង់បុរាណ" }, "icon": "temple" },
+    { "id": "history", "slug": "history", "order": 2,
+      "title": { "km": "ប្រវត្តិសាស្ត្រ" }, "icon": "scroll" },
+    { "id": "arts-sculpture", "slug": "arts-sculpture", "order": 3,
+      "title": { "km": "សិល្បៈនិងចម្លាក់" }, "icon": "palette" },
+    { "id": "music-instruments", "slug": "music-instruments", "order": 4,
+      "title": { "km": "តន្ត្រីនិងឧបករណ៍តន្ត្រី" }, "icon": "music" },
+    { "id": "festivals-rituals", "slug": "festivals-rituals", "order": 5,
+      "title": { "km": "បុណ្យប្រពៃណីនិងពិធី" }, "icon": "lantern" },
+    { "id": "script-language", "slug": "script-language", "order": 6,
+      "title": { "km": "អក្សរសាស្ត្រនិងភាសា" }, "icon": "type" },
+    { "id": "traditional-clothing", "slug": "traditional-clothing", "order": 7,
+      "title": { "km": "សម្លៀកបំពាក់ប្រពៃណី" }, "icon": "shirt" },
+    { "id": "cuisine", "slug": "cuisine", "order": 8,
+      "title": { "km": "អាហារខ្មែរ" }, "icon": "bowl" },
+    { "id": "crafts", "slug": "crafts", "order": 9,
+      "title": { "km": "សិប្បកម្មដៃ" }, "icon": "hand" },
+    { "id": "people-mythology", "slug": "people-mythology", "order": 10,
+      "title": { "km": "បុគ្គលនិងទេវកថា" }, "icon": "figure" }
+  ]
+}

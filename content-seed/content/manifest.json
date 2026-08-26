@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-08-26T00:00:00Z",
+  "globalRevision": 1,
+  "languages": ["en", "km"],
+  "languagesRevision": { "en": 1, "km": 1 },
+  "entries": [
+    {
+      "id": "kh-angkor-wat",
+      "slug": "angkor-wat",
+      "categoryId": "temples-monuments",
+      "title": { "en": "Angkor Wat", "km": "អង្គរវត្ត" },
+      "tags": ["unesco-world-heritage", "12th-century"],
+      "thumbAssetId": "img-angkor-wat-thumb",
+      "featuredOrder": 1,
+      "updatedAt": "2026-08-26T00:00:00Z",
+      "revision": 1
+    }
+  ]
+}

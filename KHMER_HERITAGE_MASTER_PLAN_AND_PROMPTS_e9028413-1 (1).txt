@@ -1,0 +1,449 @@
+KHMER HERITAGE MASTER PROJECT PLAN + MASTER PROMPTS Version 1.0
+
+MỤC ĐÍCH
+
+Đây là tài liệu gốc để giao việc các AI
+trong dự án KHMER HERITAGE. Không tự ý thay đổi các quyết định kiến trúc
+hoặc các hard requirement trong tài liệu này nếu chưa có lý do kỹ thuật
+rõ ràng.
+
+1. TẦM NHÌN
+
+KHMER HERITAGE là hệ sinh thái số về di sản và văn hóa Khmer, ưu tiên
+Android + iOS trước, sau đó website. App và website phải dùng chung một
+nguồn dữ liệu.
+
+Nguyên tắc: - Cập nhật data trên CMS/website -> app nhận data mới. -
+Không hard-code encyclopedia content vào app. - Không tạo hai kho
+content riêng cho web và mobile. - Ưu tiên một nơi lưu trữ tập trung. -
+Ưu tiên free hoặc chi phí cực thấp. - Nội dung phải có nguồn và quyền sử
+dụng rõ ràng. - Mobile-first nhưng data architecture phải phục vụ cả app
+và website.
+
+2. SẢN PHẨM
+
+Trọng tâm là Khmer Heritage Encyclopedia: một thư viện/encyclopedia
+tương tác để người dùng khám phá: - Đền tháp và kiến trúc - Lịch sử -
+Nghệ thuật và điêu khắc - Nhạc cụ và âm nhạc - Lễ hội và nghi lễ - Chữ
+viết và ngôn ngữ - Trang phục - Ẩm thực - Nghề thủ công - Địa danh -
+Nhân vật - Thần thoại/tín ngưỡng
+
+Các trải nghiệm chính: - Home / Featured Heritage - Categories -
+Search - Entry detail - Gallery - Key facts - Related entries -
+Timeline/map khi phù hợp - Recently updated / Featured content
+
+3. NGÔN NGỮ
+
+Kiến trúc phải hỗ trợ đa ngôn ngữ. Ưu tiên: 1) Khmer 2) English 3) Có
+thể mở rộng Vietnamese và ngôn ngữ khác sau này.
+
+Không hard-code text giao diện hoặc content vào component.
+
+4. DATA ARCHITECTURE
+
+Cloudflare R2 là storage ưu tiên và source of truth cho MVP.
+
+R2 dùng cho: - JSON content - metadata - images - audio - video nếu
+cần - thumbnails - downloadable assets
+
+Lý do: - ưu tiên 10 GB free tier theo kế hoạch hiện tại - phù hợp
+media/object storage - tập trung dữ liệu - giảm số dịch vụ phải vận hành
+
+LƯU Ý: R2 là object storage, không phải relational database.
+
+MVP vì vậy dùng content dạng JSON có schema rõ ràng, ví dụ:
+
+/content/km/categories.json /content/km/entries/angkor-wat.json
+/content/en/categories.json /content/en/entries/angkor-wat.json
+/media/images/ /media/audio/ /media/video/
+
+Một content ID duy nhất. Web và app đọc cùng content. Không duplicate
+content.
+
+Không tự thêm Supabase/D1 vào MVP chỉ vì tiện. Chỉ cân nhắc database khi
+quy mô/query/editorial workflow thực sự cần. Nếu sau này cần database,
+phải có proposal riêng.
+
+5. CONTENT SCHEMA
+
+Mỗi entry nên có: - id - slug - type - category - languages - title -
+summary - sections - tags - key facts - media - sources - license -
+attribution - related entries - author/editor - status - publishedAt -
+updatedAt
+
+Nội dung nên có block/section có cấu trúc thay vì một textarea khổng lồ.
+
+Trạng thái: DRAFT -> REVIEW -> APPROVED -> PUBLISHED -> ARCHIVED
+
+6. CMS
+
+CMS là thành phần quan trọng.
+
+MVP CMS phải có: - authentication - create/edit entry - upload media -
+category/tag - language - source/reference - license/attribution -
+preview - publish/unpublish - featured/order -
+draft/review/published/archived
+
+CMS ghi dữ liệu theo schema vào R2.
+
+Không để editor phải sửa JSON thủ công trong production nếu có thể cung
+cấp UI quản trị đơn giản.
+
+7. LICENSE / COPYRIGHT — HARD REQUIREMENT
+
+Không lấy content chỉ vì Google/YouTube/Facebook cho xem hoặc có nút
+download.
+
+Phải phân biệt: - Public Domain - CC0 - CC BY - CC BY-SA - CC BY-NC -
+Copyrighted - Permission required - Unknown
+
+Ưu tiên: 1) CC0 / Public Domain 2) CC BY với attribution 3) nội dung do
+dự án tự tạo 4) nội dung có permission commercial bằng văn bản 5)
+license thương mại rõ ràng
+
+Tránh: - CC BY-NC - license không rõ - re-upload - “free to listen” -
+ảnh Google Images không có license xác minh
+
+Mỗi asset phải lưu: assetId sourceUrl creator license licenseUrl
+attribution dateAdded notes
+
+Nếu xin permission trực tiếp: - lưu bằng chứng - ngày - người cấp phép -
+phạm vi sử dụng - commercial permission - link/profile/source
+
+Facebook cá nhân không đồng nghĩa public domain.
+
+8. CONTENT QUALITY
+
+Mỗi factual claim quan trọng phải có source.
+
+AI chỉ hỗ trợ: - research outline - rewrite - translation - tagging -
+metadata - proofreading
+
+Không dùng AI hallucination làm nguồn.
+
+Ưu tiên: - Cambodian cultural institutions - museums - universities -
+archives - scholarly publications - UNESCO khi phù hợp - official
+Cambodian cultural/government sources
+
+Khi nguồn mâu thuẫn: không tự đoán; ghi uncertainty hoặc trình bày các
+quan điểm.
+
+9. AUDIO / KHMER MUSIC
+
+Đã xác định rằng AI music generator dễ tạo nhạc Chinese/Thai/generic
+Asian thay vì Khmer thật.
+
+Vì vậy: recording Khmer thật > AI imitation.
+
+Các nhạc cụ/ensemble cần ưu tiên: - Pin Peat - Roneat Aik - Roneat
+Thung - Kong Thom - Kong Tauch - Samphor - Skor Thom - Chhing - Sralai
+
+Nguồn đã khảo sát: - Music of Cambodia / Chum Ngek - Wikimedia Commons -
+Freesound - Smithsonian Folkways - UW Ethnomusicology Archives -
+Facebook cá nhân/nhạc công Khmer - các ethnomusicology archives
+
+Không coi recording Facebook cá nhân là không bản quyền. Nếu muốn dùng
+commercial thì xác định chủ sở hữu và xin permission khi cần.
+
+Nhạc tang Khmer có thể có timbre Khmer rất thật, nhưng phải kiểm tra
+mood. Không dùng bản quá ai oán hoặc Sralai quá nổi cho gameplay.
+
+Ouk Chatrang BGM nên: - calm - contemplative - traditional Khmer -
+noble - restrained - loopable - không cinematic fantasy - không
+Chinese/Thai generic - không quá dramatic
+
+10. UI/UX
+
+Phong cách: - premium - modern - culturally Khmer - respectful - dễ
+đọc - mobile-first
+
+Visual language có thể lấy cảm hứng từ: - Khmer ornament - Angkor
+relief - gold/red/earth palette - traditional motifs
+
+Nhưng không biến UI thành poster Angkor quá nặng.
+
+Home: - hero/featured - categories - featured stories - explore -
+recently updated - search
+
+Entry: - cover - title - summary - key facts - sections - gallery -
+audio/video nếu có - sources - related content
+
+Không lạm dụng animation.
+
+11. APP + WEBSITE
+
+Ưu tiên: 1) Android 2) iOS 3) Website
+
+Một content source, một asset source, một schema, một CMS, nhiều
+frontend.
+
+Website: - responsive - SEO-friendly - direct entry URLs - shared data -
+search/category/detail
+
+App: - cache content quan trọng - hoạt động tốt khi mạng chậm -
+loading/error/empty state - không phụ thuộc realtime cho mọi thứ
+
+12. CACHE / VERSIONING
+
+Không cần offline toàn bộ encyclopedia trong MVP.
+
+Nên cache: - category metadata - featured entries - entry vừa đọc -
+thumbnails - asset nhỏ
+
+Dùng revision/version để app biết content mới và invalidate/update
+cache.
+
+13. API / CONTENT SERVICE
+
+Frontend không hard-code R2 URL ở mọi nơi.
+
+Tạo content service: - getCategories() - getEntries() -
+getEntry(id/slug) - searchEntries(query) - getFeatured() -
+getRelated(id)
+
+Media: - resolveAsset(assetId)
+
+Tách content layer, media layer và UI layer.
+
+14. MEDIA
+
+R2 là nơi lưu media chính.
+
+Folder convention đề xuất: /media/images/original/
+/media/images/optimized/ /media/images/thumbs/ /media/audio/
+/media/video/
+
+Ví dụ: media/images/angkor-wat/cover.webp
+media/images/angkor-wat/gallery-01.webp media/audio/pin-peat-demo-01.ogg
+
+Optimize trước khi publish: - thumbnails - WebP/AVIF khi phù hợp - audio
+bitrate hợp lý - lazy loading
+
+15. SEARCH
+
+MVP: - title - slug - category - tag - index JSON nếu phù hợp
+
+Sau này: - full text - typo tolerance - Khmer search - multilingual
+search
+
+Không over-engineer search/database trong MVP.
+
+16. SECURITY
+
+-   Admin phải authentication.
+-   Không commit R2 secret/token.
+-   Không để client có secret credential.
+-   Upload phải kiểm tra type, size, filename, path, authorization.
+-   Chỉ public asset cần public.
+-   Admin/private asset dùng secure flow.
+
+17. PHÂN CÔNG AI
+
+CODEX: - architecture - schema - codebase - R2/data layer - CMS -
+content loader - build - tests - bug fixing - deployment
+
+LOVABLE / BOLT: - UI exploration - visual design - layout - component
+styling - responsive prototype
+
+CHATGPT: - product architecture - planning - content model -
+source/license research - prompts - review - task decomposition - bridge
+giữa AI
+
+Không để hai AI cùng sửa một phần code mà không có source of truth.
+
+18. AI BRIDGE
+
+Có thể dùng docs/AI_BRIDGE.md làm relay:
+
+A = task mới nhất từ ChatGPT dành cho Codex. B = kết quả mới nhất từ
+Codex.
+
+Khi user gửi A: - đọc B mới nhất - đánh giá - quyết định next step - cập
+nhật A
+
+Khi Codex nhận B: - đọc A - execute - cập nhật B với: - files changed -
+work done - tests - build result - risks - blockers
+
+Mục tiêu: giảm copy/paste và giữ task history.
+
+19. DEVELOPMENT PHASES
+
+PHASE 0 — FOUNDATION - audit repo - audit stack/build -
+docs/PROJECT_SPEC.md - docs/CONTENT_SCHEMA.md -
+docs/CONTENT_SOURCES.md - docs/LICENSING.md - docs/AI_BRIDGE.md
+
+PHASE 1 — CONTENT MODEL - schema - categories - languages - media -
+sources/license - sample content
+
+PHASE 2 — R2 PIPELINE - bucket structure - sample JSON - sample images -
+loader - caching - versioning
+
+PHASE 3 — CMS MVP - auth - create/edit - upload - metadata - preview -
+publish/unpublish
+
+PHASE 4 — MOBILE - home - category - search - detail - gallery -
+related - cache - states
+
+PHASE 5 — WEBSITE - responsive - shared data - SEO - direct entry URLs
+
+PHASE 6 — CONTENT - 10–20 high-quality pilot entries - validate schema
+and CMS - then scale
+
+PHASE 7 — QA - Android - iOS - mobile web - desktop web - slow network -
+cache - missing asset - invalid JSON - language fallback - licensing
+audit
+
+20. MVP CONTENT PILOT
+
+Không làm hàng trăm bài ngay.
+
+Pilot nên có: - Angkor Wat - Bayon - Angkor Thom - Apsara - Khmer
+architecture - Khmer sculpture - Pin Peat - Roneat Aik - Khmer
+traditional clothing - Khmer festivals - Khmer script - Khmer crafts -
+Khmer cuisine - Khmer history timeline
+
+Mỗi entry phải chứng minh: - schema - source - license - media - related
+content - multilingual support
+
+21. CHI PHÍ
+
+Mục tiêu: free hoặc rẻ nhất có thể.
+
+Ưu tiên: - Cloudflare R2 - free/static hosting khi phù hợp - open-source
+tooling - AI chỉ dùng nơi có giá trị
+
+Chi phí có thể có: - domain - Google Play Developer - Apple Developer -
+paid media/license nếu cần - AI coding credits
+
+Không hy sinh license/content quality chỉ để tiết kiệm vài dollar.
+
+22. ROADMAP MỤC TIÊU
+
+Tuần 1: - architecture - schema - R2 - UI direction - sample content
+
+Tuần 2: - CMS MVP - loader - 5–10 entries
+
+Tuần 3: - Android core - search/category/detail - caching
+
+Tuần 4: - iOS - website - shared data verification
+
+Tuần 5: - content expansion - media optimization - licensing audit - QA
+
+Tuần 6: - polish - performance - release preparation
+
+Timeline là mục tiêu, không phải deadline cứng.
+
+23. ACCEPTANCE CRITERIA
+
+DATA: [ ] App và website đọc cùng source. [ ] Không duplicate content. [
+] CMS update -> app/web nhận data mới. [ ] Media tập trung. [ ] Schema
+documented.
+
+CMS: [ ] auth [ ] create/edit [ ] upload [ ] source/license [ ] preview
+[ ] publish/unpublish
+
+APP: [ ] Android stable [ ] iOS stable [ ] home [ ] categories [ ]
+search [ ] detail [ ] related [ ] loading/error/empty [ ] cache
+
+WEB: [ ] responsive [ ] SEO [ ] direct entry URL [ ] shared data [ ]
+search
+
+CONTENT: [ ] pilot có nguồn [ ] không dùng asset quyền không rõ [ ]
+license metadata [ ] attribution khi cần
+
+PERFORMANCE: [ ] lazy loading [ ] optimized images [ ] cache [ ]
+slow-network tolerant
+
+24. MASTER PROMPT CHO CODEX
+
+Bạn đang làm dự án KHMER HERITAGE.
+
+Mục tiêu: xây dựng Android + iOS + website về di sản Khmer với một
+content source tập trung và CMS. Mobile là ưu tiên trước; website dùng
+chung data.
+
+HARD REQUIREMENTS: 1. Không hard-code encyclopedia content vào UI. 2.
+App và website dùng cùng content source. 3. R2 là storage/source of
+truth ưu tiên cho MVP. 4. Không tự ý thêm Supabase/D1/database khác. 5.
+Thiết kế schema trước CMS. 6. Mọi content có source. 7. Mọi media có
+license/attribution metadata. 8. Không dùng asset license không rõ. 9.
+Không dùng CC BY-NC cho commercial app. 10. Ưu tiên CC0/Public Domain/CC
+BY. 11. Facebook/YouTube/free download không đồng nghĩa public domain.
+12. Recording cá nhân phải có permission commercial khi cần. 13. UI
+premium, modern, Khmer. 14. Mobile-first. 15. Không over-engineer.
+
+Trước khi code: A. đọc toàn repo B. audit stack/build C. audit
+assets/routes/dependencies D. lập architecture E. lập schema F. lập
+folder structure G. ghi docs H. sau đó mới code
+
+Mỗi task phải báo cáo: - files changed - changes - tests - build
+result - issues - remaining work
+
+Không tự ý đổi stack, storage, schema, license, dependency lớn hoặc xóa
+content.
+
+Task đầu tiên: - audit repo - tạo 5 file docs: docs/PROJECT_SPEC.md
+docs/CONTENT_SCHEMA.md docs/CONTENT_SOURCES.md docs/LICENSING.md
+docs/AI_BRIDGE.md - đưa architecture proposal - chưa xây feature lớn
+trước khi audit xong
+
+25. MASTER PROMPT CHO LOVABLE / BOLT
+
+Thiết kế UI/UX KHMER HERITAGE theo hướng premium, modern, culturally
+Khmer, mobile-first.
+
+Không làm generic blog, generic history site, dashboard-looking app, quá
+nhiều gold ornament hoặc animation.
+
+Prototype: 1. Splash 2. Home 3. Search 4. Search results 5. Categories
+6. Category 7. Heritage entry 8. Gallery 9. Related 10.
+Language/settings 11. CMS nếu cần
+
+UI phải dễ chuyển sang production code và không tạo content architecture
+khác schema.
+
+26. MASTER PROMPT CHO CONTENT AI
+
+Bạn là content researcher/editor cho KHMER HERITAGE.
+
+-   Không hallucinate.
+-   Factual claim quan trọng phải có source.
+-   Ưu tiên museum/university/archive/Cambodian cultural
+    institutions/official sources.
+-   Không copy nguyên văn.
+-   Ghi uncertainty khi cần.
+-   Không tự tạo license/attribution.
+-   Không dùng media chưa xác định quyền.
+
+Output: - ID - title - summary - category - tags - sections - key
+facts - sources - media requirements - license requirements - related
+entries - translation requirements
+
+27. CÁC PROJECT LIÊN QUAN
+
+OUK CHATRANG: - gần hoàn thành - game cờ Ốc Khmer - đang tìm BGM Khmer
+thật - không gộp code vào KHMER HERITAGE
+
+KHMER LEARN: - đã có - Learn Khmer - Khmer Dictionary - Khmer
+Pronunciation - Khmer Culture Quiz
+
+KHMER HERITAGE: - project mới - encyclopedia/heritage - Android + iOS
+trước - website dùng chung data - R2 ưu tiên - CMS cần xây - licensing
+là rủi ro lớn nhất
+
+28. NGUYÊN TẮC CUỐI
+
+KHMER HERITAGE không phải dự án “làm UI trước rồi kiếm content sau”.
+
+Content + source + license + schema là nền tảng.
+
+Không dùng asset sai bản quyền chỉ vì UI đẹp. Không hard-code content
+chỉ vì nhanh. Không thêm database chỉ vì developer quen. Không dùng AI
+hallucination làm factual source. Không biến R2 thành một hệ thống không
+có schema.
+
+Mục tiêu: - chính xác - có nguồn - license rõ - bản sắc Khmer - chung
+data giữa app và web - dễ cập nhật - chi phí thấp - scale được - MVP đơn
+giản
+
+END OF DOCUMENT

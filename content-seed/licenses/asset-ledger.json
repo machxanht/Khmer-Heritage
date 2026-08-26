@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-08-26T00:00:00Z",
+  "assets": [
+    {
+      "assetId": "img-angkor-wat-cover",
+      "file": "media/images/optimized/angkor-wat/cover.webp",
+      "sourceUrl": "project-original",
+      "creator": "KHMER HERITAGE project",
+      "license": "CC0-1.0",
+      "attribution": "KHMER HERITAGE project (placeholder graphic)",
+      "dateAdded": "2026-08-26",
+      "notes": "PLACEHOLDER — replace with verified licensed photography before any public release (docs/LICENSING.md §3)."
+    },
+    {
+      "assetId": "img-angkor-wat-thumb",
+      "file": "media/images/thumbs/angkor-wat/thumb.webp",
+      "sourceUrl": "project-original",
+      "creator": "KHMER HERITAGE project",
+      "license": "CC0-1.0",
+      "attribution": "KHMER HERITAGE project (placeholder graphic)",
+      "dateAdded": "2026-08-26",
+      "notes": "PLACEHOLDER thumbnail."
+    },
+    {
+      "assetId": "img-angkor-wat-g01",
+      "file": "media/images/optimized/angkor-wat/gallery-01.webp",
+      "sourceUrl": "project-original",
+      "creator": "KHMER HERITAGE project",
+      "license": "CC0-1.0",
+      "attribution": "KHMER HERITAGE project (placeholder graphic)",
+      "dateAdded": "2026-08-26",
+      "notes": "PLACEHOLDER gallery image."
+    },
+    {
+      "assetId": "img-angkor-wat-g02",
+      "file": "media/images/optimized/angkor-wat/gallery-02.webp",
+      "sourceUrl": "project-original",
+      "creator": "KHMER HERITAGE project",
+      "license": "CC0-1.0",
+      "attribution": "KHMER HERITAGE project (placeholder graphic)",
+      "dateAdded": "2026-08-26",
+      "notes": "PLACEHOLDER gallery image."
+    }
+  ]
+}

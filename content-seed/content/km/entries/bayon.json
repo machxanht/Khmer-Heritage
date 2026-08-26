@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0",
+  "id": "kh-bayon",
+  "slug": "bayon",
+  "type": "temple",
+  "categoryId": "temples-monuments",
+  "languages": ["km"],
+  "title": { "km": "ប្រាសាទបាយ័ន" },
+  "summary": {
+    "km": "ប្រាសាទរដ្ឋនៃព្រះបាទជ័យវរ្ម័នទី៧ នៅកណ្ដាលអង្គរធំ ល្បីដោយព្រះភក្ត្រថ្មញញឹម។"
+  },
+  "tags": ["12th-century", "buddhist", "jayavarman-vii"],
+  "sections": [
+    {
+      "id": "overview",
+      "title": { "km": "ទូទៅ" },
+      "blocks": [
+        {
+          "blockType": "paragraph",
+          "text": {
+            "km": "សេចក្តីព្រាងបណ្ដោះអាសន្ន សម្រាប់បង្ហាញការងារនៃស្ថានភាព REVIEW។"
+          }
+        }
+      ]
+    }
+  ],
+  "sources": [],
+  "license": {
+    "code": "UNKNOWN",
+    "notes": "Stub — sources and license pending verification."
+  },
+  "related": [{ "entryId": "kh-angkor-wat", "relation": "see-also" }],
+  "status": "REVIEW",
+  "publishedAt": null,
+  "updatedAt": "2026-08-26T00:00:00Z",
+  "revision": 1
+}

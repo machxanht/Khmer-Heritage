@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0",
+  "id": "kh-angkor-wat",
+  "slug": "angkor-wat",
+  "type": "temple",
+  "categoryId": "temples-monuments",
+  "languages": ["km", "en"],
+  "title": { "km": "អង្គរវត្ត", "en": "Angkor Wat" },
+  "summary": {
+    "km": "អង្គរវត្តជាប្រាសាទធំបំផុតក្នុងចំណោមប្រាសាទទាំងឡាយនៅកម្ពុជា សាងសង់ក្នុងរជ្ជកាលព្រះបាទសូរ្យវរ្ម័នទី២ ដើម្បីឧទ្ទិសដល់ព្រះវិស្ណុ។",
+    "en": "Angkor Wat is the largest of the Cambodian temples, built under Suryavarman II and dedicated to Vishnu."
+  },
+  "tags": ["unesco-world-heritage", "12th-century", "hindu", "suryavarman-ii"],
+  "coverAssetId": "img-angkor-wat-cover",
+  "sections": [
+    {
+      "id": "overview",
+      "title": { "km": "ទូទៅ", "en": "Overview" },
+      "blocks": [
+        {
+          "blockType": "paragraph",
+          "text": {
+            "km": "អង្គរវត្តស្ថិតនៅសៀមរាប ត្រូវបានសាងសង់នៅដើមសតវត្សទី១២។ ប៉មទាំង៥តំណាងឱ្យភ្នំមេរុ ចំណែករនាំងចម្លាក់លៀននិទានរឿងរាមកេរ្តិ៍ និងការកួរសមុទ្រទឹកដោះ។",
+            "en": "Located in Siem Reap and built in the early 12th century, its five towers represent Mount Meru; its galleries carry reliefs of the Ramayana and the Churning of the Sea of Milk."
+          }
+        },
+        {
+          "blockType": "keyFacts",
+          "facts": [
+            { "id": "built", "label": { "km": "ឆ្នាំសាងសង់" }, "value": { "km": "ប្រហែល ១១១៣–១១៥០" } },
+            { "id": "king", "label": { "km": "ព្រះមហាក្សត្រ" }, "value": { "km": "ព្រះបាទសូរ្យវរ្ម័នទី២" } },
+            { "id": "unesco", "label": { "km": "ស្ថានភាព UNESCO" }, "value": { "km": "ចុះបញ្ជីឆ្នាំ ១៩៩២" } }
+          ]
+        },
+        {
+          "blockType": "mapPoint",
+          "lat": 13.4125,
+          "lng": 103.867,
+          "zoom": 14,
+          "label": { "km": "អង្គរវត្ត សៀមរាប" }
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "unesco-whc-angkor",
+      "title": "Angkor",
+      "publisher": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/668/",
+      "dateAccessed": "2026-08-26"
+    }
+  ],
+  "license": {
+    "code": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "attribution": {
+      "km": "អត្ថបទដកស្រង់ផ្នែកខ្លះពីឯកសារ UNESCO World Heritage Centre។"
+    },
+    "notes": "Khmer text requires native-speaker editorial review before public release."
+  },
+  "related": [{ "entryId": "kh-bayon", "relation": "see-also" }],
+  "credits": [{ "name": "KHMER HERITAGE editorial team", "role": "author" }],
+  "status": "PUBLISHED",
+  "featuredOrder": 1,
+  "publishedAt": "2026-08-26T00:00:00Z",
+  "updatedAt": "2026-08-26T00:00:00Z",
+  "revision": 1
+}
