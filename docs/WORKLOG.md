@@ -40,6 +40,8 @@
 | 5 Website | static render từ cùng manifest | ⚪ chưa bắt đầu |
 
 ### Đã kiểm chứng lần gần nhất
+- **GitHub Actions CI: RUN GREEN** — run 33047122312, conclusion success trên commit
+  c795958 (workflow `.github/workflows/ci.yml`: npm ci → test → typecheck → web export)
 - `npm test` (root): **24/24 pass** · typecheck 3 workspace: **exit 0**
 - `npx expo export --platform web`: **pass** (12 routes + async-storage resolved bởi
   Metro) — chứng minh offline persistence build được ở cả web và native
@@ -58,7 +60,9 @@
       có URL tĩnh `/entry/<slug>` trong web export. Tương tự category/[id].tsx
       với `/category/<id>` từ categories.json.
     - **SEO meta**: component `app/src/components/seo-head.tsx` (no-op trên native,
-      render `<Head><title>+meta description` trên web) — gắn vào Entry detail.
+      render `<Head><title>+meta description` trên web) — gắn vào Entry detail VÀ
+      category detail (bổ sung phiên resume: title/description localize từ
+      categories.json). CI đã xác nhận chạy GREEN lần đầu tiên trên GitHub Actions.
     - **Sitemap/robots**: `scripts/generate-sitemap.mjs` (new, chạy `npm run sitemap`
       ở root) sinh `app/public/sitemap.xml` (12 URLs: home + entries + categories,
       lastmod từ updatedAt) + `robots.txt`; SITE_URL env override (default

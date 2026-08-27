@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import enCategories from '../../../../content-seed/content/en/categories.json';
 import { EntryCard } from '@/components/entry-card';
 import { EmptyView, ErrorView, LoadingView } from '@/components/states';
+import { SeoHead } from '@/components/seo-head';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
@@ -26,6 +27,7 @@ interface CategoryEntry extends ManifestItemValue {
 
 interface CategoryData {
   title: string;
+  description: string | null;
   entries: CategoryEntry[];
 }
 
@@ -53,16 +55,24 @@ export default function CategoryScreen() {
           : null,
       })),
     );
-    return { title: resolveLocalized(cat?.title ?? {}, contentLang) ?? String(id), entries };
+    return {
+      title: resolveLocalized(cat?.title ?? {}, contentLang) ?? String(id),
+      description: resolveLocalized(cat?.description ?? {}, contentLang) ?? null,
+      entries,
+    };
   }, [client, contentLang, id]);
 
   if (page.loading) return <LoadingView />;
   if (page.error) return <ErrorView message={page.error} onRetry={page.reload} />;
   if (!page.data) return <EmptyView title={t('state.notFound')} />;
-  const { title, entries } = page.data;
+  const { title, description, entries } = page.data;
 
   return (
     <ThemedView style={styles.flex}>
+      <SeoHead
+        title={`${title} — Khmer Heritage`}
+        description={description ?? 'Khmer heritage encyclopedia'}
+      />
       <SafeAreaView style={styles.flex} edges={['top']}>
         <ScrollView contentContainerStyle={[styles.content, { paddingBottom: BottomTabInset }]}>
           <ThemedText type="title">{title}</ThemedText>
