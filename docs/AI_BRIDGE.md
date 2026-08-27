@@ -48,6 +48,14 @@ Depends-on: —
 
 ## Section B — Results from Codex
 
+### B-004 · 2026-08-27 · by: Codex · answers: A-002 (offline persistence)
+Files changed: app/src/lib/async-storage-cache.ts (new) · app/src/lib/content-context.tsx · app/package.json (+@react-native-async-storage/async-storage@^3.1.1) · docs/WORKLOG.md (new handoff/work-history doc)
+Changes: replaced memory-only cache with persistent AsyncStorageCacheAdapter (keys prefixed `kh.content.`, storage failures swallowed → degrade to cache-miss, never crash boot) wired into the single ContentClient provider; wrote docs/WORKLOG.md as a session-handoff record so future models/devs can resume without re-auditing the repo.
+Tests: app `tsc --noEmit` → exit 0; package typecheck OK; peer deps verified (react */react-native *).
+Build: `npx expo export --platform web` re-run after change → **success**, 12 static routes + entry-*.js (2.2MB) incl. async-storage module resolved by Metro.
+Issues/Risks: device smoke test still outstanding; AsyncStorage on web maps to localStorage automatically.
+Blockers needing owner decision: B2 (R2 provisioning), B3 (CMS auth choice) unchanged.
+
 ### B-003 · 2026-08-26 · by: Codex · answers: A-002 (mobile scaffold)
 Files changed: app/** (Expo SDK 57 scaffold; metro.config.js monorepo config; src/lib/{config,content-context,i18n,language-context,use-resource}; src/components/{states,entry-card,content-blocks,app-tabs,app-tabs.web}; src/types/css-modules.d.ts; src/app/(tabs)/{_layout,index,categories,search,settings}.tsx; src/app/category/[id].tsx; src/app/entry/[slug].tsx; app.json branding/scheme) · .env.example (root)
 Changes: full navigation shell (NativeTabs on iOS/Android, custom tab bar on web) · Home (featured hero rail, recently updated, category chips) · Categories tab + category detail · manifest-driven Search · Settings (km/en/vi UI language, content-source URL, revision display, manual refresh) · Entry detail rendering every schema v1.0 block type incl. sources, license attribution and related rails · consistent Loading/Error/Empty states on every screen · staleOk offline fallback throughout · Android-emulator host mapping (10.0.2.2).

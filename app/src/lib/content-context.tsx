@@ -3,7 +3,7 @@
  * through the typed client, never through raw URLs).
  */
 
-import { ContentClient, MemoryCacheAdapter } from '@kh/content-client';
+import { ContentClient } from '@kh/content-client';
 import {
   createContext,
   useCallback,
@@ -14,6 +14,7 @@ import {
   type ReactNode,
 } from 'react';
 
+import { AsyncStorageCacheAdapter } from '@/lib/async-storage-cache';
 import { CONTENT_BASE_URL } from '@/lib/config';
 
 interface ContentContextValue {
@@ -26,11 +27,11 @@ interface ContentContextValue {
 
 const ContentContext = createContext<ContentContextValue | null>(null);
 
-/** One client per app; swap MemoryCacheAdapter for AsyncStorage persistence later. */
+/** One client per app; content cache persists across launches via AsyncStorage. */
 function createAppClient(): ContentClient {
   return new ContentClient({
     baseUrl: CONTENT_BASE_URL,
-    storage: new MemoryCacheAdapter(),
+    storage: new AsyncStorageCacheAdapter(),
   });
 }
 
