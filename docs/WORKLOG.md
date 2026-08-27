@@ -10,6 +10,9 @@
 
 ## WEB TEST ĐANG MỞ (cập nhật 2026-08-27)
 
+> ⚠️ Phiên mới nhất (xem "VIỆC VỪA LÀM XONG" mục 0) đã thêm CI + SEO/prerender web.
+> Dev server cũ ở port 8081 có thể đã dừng — khởi động lại theo hướng dẫn dưới.
+
 - Expo dev server (web) đang chạy tại port 8081 với
   `EXPO_PUBLIC_CONTENT_BASE_URL=https://obscure-happiness-4qwj596g7p7vf7gvr-8787.app.github.dev`
 - Ports 8081 + 8787 đã set **public** qua `gh codespace ports visibility` → truy cập
@@ -44,6 +47,25 @@
 ---
 
 ## VIỆC VỪA LÀM XONG (phiên trước + phiên này)
+
+0. **Phiên CI + Website SEO (mới nhất, 2026-08-27):** chuyển Phase 5 từ 0% → nền móng xong:
+    - **CI gate** `.github/workflows/ci.yml` (new): push/PR vào main → npm ci →
+      `npm test` (24 tests) → `npm run typecheck` (đã thêm script `typecheck` cho
+      app) → `expo export --platform web` làm smoke-check Metro bundle.
+    - **Static prerender SEO**: `entry/[slug].tsx` export `generateStaticParams()`
+      đọc trực tiếp `content-seed/content/manifest.json` (Metro resolve JSON ngoài
+      projectRoot nhờ watchFolders; tsconfig thêm `resolveJsonModule`) → mỗi entry
+      có URL tĩnh `/entry/<slug>` trong web export. Tương tự category/[id].tsx
+      với `/category/<id>` từ categories.json.
+    - **SEO meta**: component `app/src/components/seo-head.tsx` (no-op trên native,
+      render `<Head><title>+meta description` trên web) — gắn vào Entry detail.
+    - **Sitemap/robots**: `scripts/generate-sitemap.mjs` (new, chạy `npm run sitemap`
+      ở root) sinh `app/public/sitemap.xml` (12 URLs: home + entries + categories,
+      lastmod từ updatedAt) + `robots.txt`; SITE_URL env override (default
+      khmerheritage.example.com). Expo copy `public/` vào web output khi export.
+    - ⚠️ Prerender: HTML tĩnh chưa chứa nội dung entry fetch runtime (client-side
+      fetch từ seed server/R2) — đủ cho URL riêng + title/meta; SSR đầy đủ là việc
+      lớn hơn, ghi nhận làm tương lai của Phase 5.
 
 0. **Phiên polish (mới nhất):** web test PASS (owner xác nhận Home OK). Polish Entry
    detail trong `app/src/app/entry/[slug].tsx` + `content-blocks.tsx` + `i18n.ts`:
@@ -81,12 +103,15 @@
    OK, featured Angkor Wat, recently updated — ảnh cover là placeholder vì media thuộc
    Phase 2). Còn smoke test trên máy thật Android/iOS (hướng dẫn: `docs/TESTING_GUIDE.md`).
 3. ✅ ~~Polish Entry detail~~ (xong — xem mục "VIỆC VỪA LÀM")
-4. 🔶 EAS build Android APK: `app/eas.json` + `android.package` đã cấu hình sẵn
+4. ✅ ~~CI gate + Phase 5 nền móng (prerender, sitemap, robots, SeoHead)~~ (xong — xem
+   mục "VIỆC VỪA LÀM" số 0). Còn lại của Phase 5: deploy static export lên hosting
+   (Cloudflare Pages khi B2 xong — cùng nhà cung cấp R2), SITE_URL thật, SSR nâng cao nếu cần.
+5. 🔶 EAS build Android APK: `app/eas.json` + `android.package` đã cấu hình sẵn
    (`com.machxanht.khmerheritage`). Còn lại chỉ chạy lệnh: `cd app && npx eas login`
    (cần tài khoản Expo của owner) → `npx eas build -p android --profile preview`.
    ⚠️ Sửa `EXPO_PUBLIC_CONTENT_BASE_URL` trong `eas.json` profile `base` thành URL R2 thật
    khi B2 xong (đang là placeholder `...example.workers.dev`).
-5. Phase 2 media pipeline khi B2 xong (upload ảnh thật theo asset-ledger,
+6. Phase 2 media pipeline khi B2 xong (upload ảnh thật theo asset-ledger,
    tối ưu webp, gate license trong CI).
 
 ## BLOCKER CẦN CHỦ REPO QUYẾT ĐỊNH

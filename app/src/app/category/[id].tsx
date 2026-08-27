@@ -3,6 +3,7 @@ import { Link, useLocalSearchParams } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import enCategories from '../../../../content-seed/content/en/categories.json';
 import { EntryCard } from '@/components/entry-card';
 import { EmptyView, ErrorView, LoadingView } from '@/components/states';
 import { ThemedText } from '@/components/themed-text';
@@ -13,6 +14,11 @@ import { useLanguage } from '@/lib/language-context';
 import { useResource } from '@/lib/use-resource';
 import type { ManifestItemValue } from '@kh/content-schema';
 import { resolveLocalized } from '@kh/content-schema';
+
+/** Static prerender params for web export (SEO): one URL per category. */
+export function generateStaticParams(): { id: string }[] {
+  return enCategories.categories.map((cat) => ({ id: cat.id }));
+}
 
 interface CategoryEntry extends ManifestItemValue {
   imageUri: string | null;
@@ -35,6 +41,7 @@ export default function CategoryScreen() {
       client.getManifest({ staleOk: true }),
     ]);
     const cat = cats.categories.find((c) => c.id === id);
+    if (!cat) return null;
     const filtered = manifest.entries
       .filter((e) => e.categoryId === id)
       .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));

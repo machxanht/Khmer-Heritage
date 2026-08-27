@@ -1,0 +1,36 @@
+# CI — quality gate cho mọi push/PR vào main (PROJECT_SPEC §7).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies (workspaces)
+        run: npm ci || npm install
+
+      - name: Unit tests (content-schema + content-client)
+        run: npm test
+
+      - name: Typecheck all workspaces
+        run: npm run typecheck
+
+      - name: Web export smoke check (Metro can bundle the app)
+        working-directory: app
+        run: npx expo export --platform web --output-dir /tmp/web-export

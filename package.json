@@ -9,7 +9,8 @@
   "scripts": {
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "seed": "node scripts/dev-server.mjs"
+    "seed": "node scripts/dev-server.mjs",
+    "sitemap": "node scripts/generate-sitemap.mjs"
   },
   "engines": {
     "node": ">=20"

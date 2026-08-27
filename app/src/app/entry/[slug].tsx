@@ -10,6 +10,7 @@ import { ExternalLink } from '@/components/external-link';
 import { EntryCard } from '@/components/entry-card';
 import { SectionRenderer } from '@/components/content-blocks';
 import { EmptyView, ErrorView, LoadingView } from '@/components/states';
+import { SeoHead } from '@/components/seo-head';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
@@ -18,6 +19,15 @@ import { useLanguage } from '@/lib/language-context';
 import { useResource } from '@/lib/use-resource';
 import type { EntryValue } from '@kh/content-schema';
 import { resolveLocalized } from '@kh/content-schema';
+import seedManifest from '../../../../content-seed/content/manifest.json';
+
+/**
+ * Static prerender params for web export (SEO): every entry slug in the
+ * content manifest gets its own URL (/entry/<slug>) with real HTML output.
+ */
+export function generateStaticParams(): { slug: string }[] {
+  return seedManifest.entries.map((item) => ({ slug: item.slug }));
+}
 
 interface EntryData {
   entry: EntryValue | null;
@@ -47,6 +57,12 @@ export default function EntryScreen() {
 
   return (
     <ThemedView style={styles.flex}>
+      <SeoHead
+        title={`${resolveLocalized(entry.title, contentLang) ?? entry.slug} — Khmer Heritage`}
+        description={
+          resolveLocalized(entry.summary, contentLang) ?? 'Khmer heritage encyclopedia'
+        }
+      />
       <SafeAreaView style={styles.flex} edges={['top']}>
         <ScrollView contentContainerStyle={[styles.content, { paddingBottom: BottomTabInset }]}>
           <EntryCard

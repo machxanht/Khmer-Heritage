@@ -48,6 +48,14 @@ Depends-on: —
 
 ## Section B — Results from Codex
 
+### B-006 · 2026-08-27 · by: Codex · answers: A-001 (Phase 5 foundation + CI gate)
+Files changed: .github/workflows/ci.yml (new) · scripts/generate-sitemap.mjs (new) · app/src/components/seo-head.tsx (new) · app/src/app/entry/[slug].tsx (+generateStaticParams, SeoHead) · app/src/app/category/[id].tsx (+generateStaticParams, null-guard) · app/tsconfig.json (resolveJsonModule) · app/package.json (+typecheck script) · package.json (+sitemap script) · docs/WORKLOG.md
+Changes: CI quality gate on push/PR to main (npm ci → tests → typecheck → expo web export smoke check); web SEO foundation — generateStaticParams in entry/category routes reads content-seed JSON directly (Metro watchFolders resolves paths outside projectRoot), SeoHead component (expo-router/head, web-only no-op on native), sitemap.xml (12 URLs w/ lastmod from manifest updatedAt) + robots.txt generated into app/public/ via `npm run sitemap`.
+Tests: sitemap generator exit 0 output verified; typecheck/tests/export run — see WORKLOG.
+Build: n/a beyond export smoke check in CI.
+Issues/Risks: prerendered HTML lacks runtime-fetched entry body (client-side fetch from R2/seed server); full SSR deferred as future Phase 5 work. Default SITE_URL is a placeholder until hosting decision (suggest Cloudflare Pages w/ B2).
+Blockers needing owner decision: B2 (R2), B3 (CMS auth) unchanged.
+
 ### B-005 · 2026-08-27 · by: Codex · answers: A-002 (smoke-test infrastructure)
 Files changed: docs/TESTING_GUIDE.md (new) · docs/WORKLOG.md
 Changes: stood up test infrastructure — seed server :8787 verified serving all endpoints HTTP 200 (manifest, km/en categories+entries, asset ledger); Expo Metro dev server running on :8081, iOS/web bundle succeeded with 1327 modules incl. new async-storage; wrote detailed Vietnamese smoke-test guide `docs/TESTING_GUIDE.md` (7 scenarios incl. offline-cache validation of B-004, revision refresh, Khmer font rendering checklist).
