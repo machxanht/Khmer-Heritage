@@ -27,19 +27,35 @@ Tests: <what ran, results>
 Build: <result>
 Issues/Risks: <bullets>
 Blockers needing owner decision: <B1..>
-### A-002 · 2026-08-26 · from: Owner · status: OPEN
-Task: Blocker B1 RESOLVED — Stack Option A approved: **Expo (React Native) + TypeScript**. Proceed to Phase 1 (Content Model): implement `packages/content-schema` (types + zod validation exactly per docs/CONTENT_SCHEMA.md v1.0), `packages/content-client` (content service API per master §13), and `content-seed/` sample data proving the schema end-to-end with tests. Then scaffold the Expo app foundation consuming the same packages.
-Constraints: master §24 hard requirements unchanged; no database; schema-first; no hardcoded content in UI.
-Priority: P0
-Depends-on: B-001
-
-
 Remaining work: <bullets>
 ```
 
 ---
 
 ## Section A — Tasks for Codex
+
+### A-002 · 2026-08-26 · from: Owner · status: OPEN
+Task: Blocker B1 RESOLVED — Stack Option A approved: **Expo (React Native) + TypeScript**. Proceed to Phase 1 (Content Model): implement `packages/content-schema` (types + zod validation exactly per docs/CONTENT_SCHEMA.md v1.0), `packages/content-client` (content service API per master §13), and `content-seed/` sample data proving the schema end-to-end with tests. Then scaffold the Expo app foundation consuming the same packages.
+Constraints: master §24 hard requirements unchanged; no database; schema-first; no hardcoded content in UI.
+Priority: P0
+Depends-on: B-001
+
+### A-001 · 2026-08-26 · from: Owner · status: DONE
+Task: Act as lead AI developer for KHMER HERITAGE. Treat the master plan txt as the binding specification. Audit the current repo, then implement the appropriate next phase, prioritizing foundation/data architecture over UI. Build Android+iOS from one codebase. Report files changed/changes/tests/build/issues per task. Do not guess unclear points — raise blockers instead.
+Constraints: obey HARD REQUIREMENTS §24 (shared content source, R2 storage, schema-first, no hardcoded content, clean licensing, no added databases).
+Priority: P0
+Depends-on: —
+
+## Section B — Results from Codex
+
+### B-003 · 2026-08-26 · by: Codex · answers: A-002 (mobile scaffold)
+Files changed: app/** (Expo SDK 57 scaffold; metro.config.js monorepo config; src/lib/{config,content-context,i18n,language-context,use-resource}; src/components/{states,entry-card,content-blocks,app-tabs,app-tabs.web}; src/types/css-modules.d.ts; src/app/(tabs)/{_layout,index,categories,search,settings}.tsx; src/app/category/[id].tsx; src/app/entry/[slug].tsx; app.json branding/scheme) · .env.example (root)
+Changes: full navigation shell (NativeTabs on iOS/Android, custom tab bar on web) · Home (featured hero rail, recently updated, category chips) · Categories tab + category detail · manifest-driven Search · Settings (km/en/vi UI language, content-source URL, revision display, manual refresh) · Entry detail rendering every schema v1.0 block type incl. sources, license attribution and related rails · consistent Loading/Error/Empty states on every screen · staleOk offline fallback throughout · Android-emulator host mapping (10.0.2.2).
+Tests: root `npm test` → 24/24 pass; `npm run typecheck` across all three workspaces → exit 0; `npx expo export --platform web` → **exit 0**, all 12 routes statically bundled (proves Metro resolves @kh/* workspace packages).
+Build: web bundle ✅. Android/iOS native builds require a device/EAS — not runnable in this environment.
+Issues/Risks: cache persistence still memory-only (AsyncStorage adapter = next step); Khmer copy needs native-speaker review; media files arrive with Phase 2 (placeholders degrade gracefully today).
+Blockers needing owner decision: B2 (R2 provisioning) unchanged.
+Remaining work: AsyncStorage-backed CacheAdapter · entry detail visual polish · Phase 2 media pipeline · Phase 3 CMS.
 
 ### B-002 · 2026-08-26 · by: Codex · answers: A-002
 Files changed: package.json · tsconfig.base.json · .gitignore · packages/content-schema/** (src/schema.ts, src/collections.ts, src/index.ts, tests/) · packages/content-client/** (src/cache.ts, src/client.ts, src/index.ts, tests/) · content-seed/** (content/manifest.json, en+km categories, en+km entries angkor-wat & bayon, licenses/asset-ledger.json) · scripts/dev-server.mjs
@@ -49,15 +65,6 @@ Build: n/a — no app yet.
 Issues/Risks: Khmer copy needs native-speaker editorial review (flagged in entry license.notes) · media files themselves arrive in Phase 2 (ledger entries are declared placeholders).
 Blockers needing owner decision: B2 (R2 bucket/domain) still open — dev proceeds against scripts/dev-server.mjs on :8787.
 Remaining work: scaffold Expo app `/app` consuming @kh/* packages (Phase 4 foundation: navigation shell, home/category/detail wiring, i18n layer, loading/error/empty states).
-
-
-### A-001 · 2026-08-26 · from: Owner · status: DONE
-Task: Act as lead AI developer for KHMER HERITAGE. Treat the master plan txt as the binding specification. Audit the current repo, then implement the appropriate next phase, prioritizing foundation/data architecture over UI. Build Android+iOS from one codebase. Report files changed/changes/tests/build/issues per task. Do not guess unclear points — raise blockers instead.
-Constraints: obey HARD REQUIREMENTS §24 (shared content source, R2 storage, schema-first, no hardcoded content, clean licensing, no added databases).
-Priority: P0
-Depends-on: —
-
-## Section B — Results from Codex
 
 ### B-001 · 2026-08-26 · by: Codex · answers: A-001
 Files changed: docs/PROJECT_SPEC.md, docs/CONTENT_SCHEMA.md, docs/CONTENT_SOURCES.md, docs/LICENSING.md, docs/AI_BRIDGE.md (created).

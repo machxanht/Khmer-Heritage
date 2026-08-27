@@ -14,6 +14,9 @@ export const Colors = {
     backgroundElement: '#F0F0F3',
     backgroundSelected: '#E0E1E6',
     textSecondary: '#60646C',
+    // Khmer-inspired accents (master §10: gold/red/earth, restrained).
+    accent: '#9E3B2E',
+    gold: '#8C6D1F',
   },
   dark: {
     text: '#ffffff',
@@ -21,6 +24,8 @@ export const Colors = {
     backgroundElement: '#212225',
     backgroundSelected: '#2E3135',
     textSecondary: '#B0B4BA',
+    accent: '#E08573',
+    gold: '#D9BC6B',
   },
 } as const;
 

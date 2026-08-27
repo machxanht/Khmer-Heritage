@@ -76,7 +76,7 @@ Phase 1 scaffolding starts only after B1 is answered in `AI_BRIDGE.md`.
 | 1 Content Model | schema impl · categories · sample entries | ✅ **COMPLETE** (`@kh/content-schema` + `@kh/content-client` + seed; 24 tests green) |
 | 2 R2 Pipeline | bucket layout · loader · caching · versioning | blocked by B2 → local seed mode meanwhile |
 | 3 CMS MVP | auth · CRUD · upload · publish flow | after Phase 1–2 |
-| 4 Mobile | home/category/search/detail/gallery/related/cache/states | after Phase 1 |
+| 4 Mobile | home/category/search/detail/gallery/related/cache/states | **IN PROGRESS** — Expo shell + core screens done, web export verified; cache persistence + polish remaining |
 | 5 Website | shared data · SEO · direct entry URLs | after Phase 4 |
 | 6 Content | 10–20 pilot entries (§20 list) | parallel from Phase 1 |
 | 7 QA | platforms · slow network · cache · licensing audit | last |

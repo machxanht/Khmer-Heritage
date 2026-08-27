@@ -20,5 +20,7 @@ Binding specification: `KHMER_HERITAGE_MASTER_PLAN_AND_PROMPTS_e9028413-1 (1).tx
 - Phase 0 — Foundation: complete ✅
 - Stack decision: Expo (React Native) + TypeScript ✅ (AI_BRIDGE A-002)
 - Phase 1 — Content Model: complete ✅ — `packages/content-schema`, `packages/content-client`, `content-seed/` (24 tests green)
-- Next: scaffold Expo app `/app`; pending B2 R2 provisioning (owner) — local seed server meanwhile; B3 CMS auth (Phase 3).
+- Phase 4 — Mobile foundation: in progress — Expo SDK 57 app (`app/`) with Home/Categories/Search/Settings/Category/Entry screens, km/en/vi i18n; `expo export` verified
+- Run locally: `npm run seed` (serves content-seed on :8787) then `cd app && npx expo start`
+- Next: AsyncStorage cache adapter, Phase 2 media pipeline, Phase 3 CMS; pending B2 R2 provisioning (owner).
 
