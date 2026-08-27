@@ -8,6 +8,19 @@
 > `docs/CONTENT_SOURCES.md`, `docs/LICENSING.md`, `docs/AI_BRIDGE.md`.
 > Master plan: `KHMER_HERITAGE_MASTER_PLAN_AND_PROMPTS_e9028413-1 (1).txt`.
 
+## WEB TEST ĐANG MỞ (cập nhật 2026-08-27)
+
+- Expo dev server (web) đang chạy tại port 8081 với
+  `EXPO_PUBLIC_CONTENT_BASE_URL=https://obscure-happiness-4qwj596g7p7vf7gvr-8787.app.github.dev`
+- Ports 8081 + 8787 đã set **public** qua `gh codespace ports visibility` → truy cập
+  được từ trình duyệt bất kỳ không cần login.
+- **URL test cho owner:** mở `https://obscure-happiness-4qwj596g7p7vf7gvr-8081.app.github.dev`
+  (app web) — seed content fetch từ `...-8787...` public URL đã xác minh HTTP 200.
+- Lần sau khởi động lại: `npm run seed` và
+  `cd app && EXPO_PUBLIC_CONTENT_BASE_URL=https://<codespace-name>-8787.app.github.dev npx expo start --port 8081`,
+  nhớ set cả 2 port public (`gh codespace ports visibility 8081:public 8787:public -c <name>`).
+- Checklist các kịch bản test vẫn dùng `docs/TESTING_GUIDE.md` (bỏ qua mục QR/Expo Go).
+
 ---
 
 ## SNAPSHOT HIỆN TẠI *(cập nhật 2026-08-27, sau commit thêm AsyncStorage cache)*
