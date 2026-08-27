@@ -49,10 +49,10 @@
 ## BƯỚC TIẾP THEO (đề xuất thứ tự)
 
 1. ✅ ~~AsyncStorage CacheAdapter~~ (xong)
-2. **Smoke test end-to-end trên Android/iOS** — chưa ai chạy app thật:
-   `npm run seed` (port 8787) → `cd app && npx expo start`. Kiểm font Khmer,
-   dark mode, scroll rail, refresh Settings, offline mode (tắt seed server rồi
-   mở lại app phải hiện dữ liệu cache).
+2. 🔶 **Smoke test end-to-end trên Android/iOS — ĐANG DIỄN RA:** hạ tầng test đã sẵn sàng
+   (seed server :8787 xác minh 200 trên mọi endpoint; Expo Metro :8081 running, bundle
+   1327 modules OK). Hướng dẫn chi tiết từng kịch bản + bảng checklist nằm ở
+   `docs/TESTING_GUIDE.md`. Cần người thật cầm máy để điền kết quả (codespace không có thiết bị).
 3. Polish Entry detail: gallery/media block, related rails đẹp hơn.
 4. Chuẩn bị build EAS Android APK để chủ repo cài thử.
 5. Phase 2 media pipeline khi B2 xong (upload ảnh thật theo asset-ledger,

@@ -48,6 +48,14 @@ Depends-on: —
 
 ## Section B — Results from Codex
 
+### B-005 · 2026-08-27 · by: Codex · answers: A-002 (smoke-test infrastructure)
+Files changed: docs/TESTING_GUIDE.md (new) · docs/WORKLOG.md
+Changes: stood up test infrastructure — seed server :8787 verified serving all endpoints HTTP 200 (manifest, km/en categories+entries, asset ledger); Expo Metro dev server running on :8081, iOS/web bundle succeeded with 1327 modules incl. new async-storage; wrote detailed Vietnamese smoke-test guide `docs/TESTING_GUIDE.md` (7 scenarios incl. offline-cache validation of B-004, revision refresh, Khmer font rendering checklist).
+Tests: curl checks all 200 · Metro bundle OK. Actual on-device pass requires owner's phone/emulator — codespace has no device.
+Build: n/a (servers verified live).
+Issues/Risks: DevTools GUI lib error in codespace is cosmetic only; phone cannot reach codespace localhost — must use public forwarded port or EXPO_PUBLIC_CONTENT_BASE_URL (instructions in guide §A).
+Blockers needing owner decision: B2 (R2), B3 (CMS auth) unchanged.
+
 ### B-004 · 2026-08-27 · by: Codex · answers: A-002 (offline persistence)
 Files changed: app/src/lib/async-storage-cache.ts (new) · app/src/lib/content-context.tsx · app/package.json (+@react-native-async-storage/async-storage@^3.1.1) · docs/WORKLOG.md (new handoff/work-history doc)
 Changes: replaced memory-only cache with persistent AsyncStorageCacheAdapter (keys prefixed `kh.content.`, storage failures swallowed → degrade to cache-miss, never crash boot) wired into the single ContentClient provider; wrote docs/WORKLOG.md as a session-handoff record so future models/devs can resume without re-auditing the repo.
