@@ -241,6 +241,13 @@ function MediaCard({
       <ThemedText type="small" themeColor="textSecondary">
         {t('detail.mediaUnavailable')}
       </ThemedText>
+      {kind === 'video' && url && (
+        <ExternalLink href={url as Parameters<typeof ExternalLink>[0]['href']} asChild>
+          <Pressable style={({ pressed }) => pressed && styles.pressed}>
+            <ThemedText type="linkPrimary">{t('detail.watchVideo')}</ThemedText>
+          </Pressable>
+        </ExternalLink>
+      )}
       {(provider || url || assetId) && (
         <ThemedText type="code" themeColor="textSecondary" numberOfLines={1}>
           {[provider, url ?? assetId].filter(Boolean).join(' · ')}
@@ -321,7 +328,7 @@ function MapPointBlock({
       <ThemedText type="code" themeColor="textSecondary">
         {lat.toFixed(4)}°, {lng.toFixed(4)}°
       </ThemedText>
-      <ExternalLink href={mapsUrl} asChild>
+      <ExternalLink href={mapsUrl as Parameters<typeof ExternalLink>[0]['href']} asChild>
         <Pressable style={({ pressed }) => pressed && styles.pressed}>
           <ThemedText type="linkPrimary">{t('detail.openMap')}</ThemedText>
         </Pressable>

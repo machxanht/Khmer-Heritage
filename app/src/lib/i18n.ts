@@ -31,6 +31,10 @@ export type UiKey =
   | 'detail.credits'
   | 'detail.openMap'
   | 'detail.mediaUnavailable'
+  | 'detail.updated'
+  | 'detail.visitSource'
+  | 'detail.viewLicense'
+  | 'detail.watchVideo'
   | 'settings.language'
   | 'settings.languageHint'
   | 'settings.viSoon'
@@ -71,6 +75,10 @@ const en: Dict = {
   'detail.openMap': 'Open in Maps',
   'detail.mediaUnavailable':
     'Audio/video arrives with Phase 2 (media pipeline). Metadata shown below.',
+  'detail.updated': 'Updated {date}',
+  'detail.visitSource': 'Visit source ↗',
+  'detail.viewLicense': 'View license ↗',
+  'detail.watchVideo': 'Watch video ↗',
   'settings.language': 'Language',
   'settings.languageHint': 'Interface and content language',
   'settings.viSoon': 'Coming soon',
@@ -111,6 +119,10 @@ const km: Dict = {
   'detail.credits': 'គុណគូរ',
   'detail.openMap': 'បើកក្នុងផែនទី',
   'detail.mediaUnavailable': 'សម្លេង/វីដេអូនឹងមកដល់នៅដំណាក់កាលទី២។',
+  'detail.updated': 'ធ្វើបច្ចុប្បន្នភាព {date}',
+  'detail.visitSource': 'មើលប្រភព ↗',
+  'detail.viewLicense': 'មើលអាជ្ញាបណ្ណ ↗',
+  'detail.watchVideo': 'មើលវីដេអូ ↗',
   'settings.language': 'ភាសា',
   'settings.languageHint': 'ភាសាសម្រាប់កម្មវិធី និងមាតិកា',
   'settings.viSoon': 'នឹងមកដល់ឆាប់ៗ',

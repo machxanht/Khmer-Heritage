@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "appVersionSource": "remote",
+    "version": ">= 13.0.0",
+    "requireCommit": false
+  },
+  "build": {
+    "base": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_CONTENT_BASE_URL": "https://khmer-heritage-content.example.workers.dev"
+      }
+    },
+    "development": {
+      "extends": "base",
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "extends": "base",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "extends": "base",
+      "autoIncrement": true,
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -45,6 +45,21 @@
 
 ## VIỆC VỪA LÀM XONG (phiên trước + phiên này)
 
+0. **Phiên polish (mới nhất):** web test PASS (owner xác nhận Home OK). Polish Entry
+   detail trong `app/src/app/entry/[slug].tsx` + `content-blocks.tsx` + `i18n.ts`:
+   - FIX: Related entries giờ resolve cover thật qua `resolveAsset` (trước luôn
+     `imageUri={null}` → chỉ placeholder) + thêm summary.
+   - Sources có `url` → bấm được (ExternalLink, mở in-app browser); License có
+     `licenseUrl` → link "View license".
+   - Video block provider=external có `url` → nút "Watch video".
+   - Dòng meta "Updated {date}" dưới hero (Intl.DateTimeFormat, locale km/vi/en).
+   - Key i18n mới: `detail.updated/visitSource/viewLicense/watchVideo` (en+km; vi fallback en).
+   - ⚠️ Quirk: typed-routes khiến string động không gán trực tiếp cho `href` — cast qua
+     `Parameters<typeof ExternalLink>[0]['href']` (helper `asExternal` trong [slug].tsx).
+   - EAS: tạo `app/eas.json` (preview=APK, production=AAB) + `android.package`
+     `com.machxanht.khmerheritage` trong `app.json`. Chưa chạy build (cần `eas login` của owner).
+   - Kiểm chứng: tsc exit 0 · npm test 24/24 · expo export web pass đủ routes.
+
 1. Phase 0 + 1 hoàn chỉnh: zod schema v1.0 với publish gates; ContentClient §13
    (`getManifest/getCategories/getEntries/getEntry/searchEntries/getFeatured/
    getRelated/resolveAsset`, refresh() theo revision, staleOk fallback,
@@ -62,12 +77,15 @@
 ## BƯỚC TIẾP THEO (đề xuất thứ tự)
 
 1. ✅ ~~AsyncStorage CacheAdapter~~ (xong)
-2. 🔶 **Smoke test end-to-end trên Android/iOS — ĐANG DIỄN RA:** hạ tầng test đã sẵn sàng
-   (seed server :8787 xác minh 200 trên mọi endpoint; Expo Metro :8081 running, bundle
-   1327 modules OK). Hướng dẫn chi tiết từng kịch bản + bảng checklist nằm ở
-   `docs/TESTING_GUIDE.md`. Cần người thật cầm máy để điền kết quả (codespace không có thiết bị).
-3. Polish Entry detail: gallery/media block, related rails đẹp hơn.
-4. Chuẩn bị build EAS Android APK để chủ repo cài thử.
+2. 🔶 Smoke test: **web ĐÃ TEST THÀNH CÔNG** (owner xác nhận Home render đúng: font Khmer
+   OK, featured Angkor Wat, recently updated — ảnh cover là placeholder vì media thuộc
+   Phase 2). Còn smoke test trên máy thật Android/iOS (hướng dẫn: `docs/TESTING_GUIDE.md`).
+3. ✅ ~~Polish Entry detail~~ (xong — xem mục "VIỆC VỪA LÀM")
+4. 🔶 EAS build Android APK: `app/eas.json` + `android.package` đã cấu hình sẵn
+   (`com.machxanht.khmerheritage`). Còn lại chỉ chạy lệnh: `cd app && npx eas login`
+   (cần tài khoản Expo của owner) → `npx eas build -p android --profile preview`.
+   ⚠️ Sửa `EXPO_PUBLIC_CONTENT_BASE_URL` trong `eas.json` profile `base` thành URL R2 thật
+   khi B2 xong (đang là placeholder `...example.workers.dev`).
 5. Phase 2 media pipeline khi B2 xong (upload ảnh thật theo asset-ledger,
    tối ưu webp, gate license trong CI).
 

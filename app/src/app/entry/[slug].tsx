@@ -3,9 +3,10 @@
  * license/credits → related. Missing media degrade to placeholders.
  */
 import { Link, useLocalSearchParams } from 'expo-router';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { ExternalLink } from '@/components/external-link';
 import { EntryCard } from '@/components/entry-card';
 import { SectionRenderer } from '@/components/content-blocks';
 import { EmptyView, ErrorView, LoadingView } from '@/components/states';
@@ -56,6 +57,10 @@ export default function EntryScreen() {
             onPress={() => {}}
           />
 
+          <ThemedText type="small" themeColor="textSecondary">
+            {t('detail.updated', { date: formatDate(entry.updatedAt, contentLang) })}
+          </ThemedText>
+
           {entry.sections.map((section) => (
             <SectionRenderer key={section.id} section={section} />
           ))}
@@ -63,14 +68,26 @@ export default function EntryScreen() {
           {entry.sources.length > 0 && (
             <View style={styles.block}>
               <ThemedText type="subtitle">{t('detail.sources')}</ThemedText>
-              {entry.sources.map((src) => (
-                <ThemedView key={src.id} type="backgroundElement" style={styles.sourceRow}>
-                  <ThemedText type="smallBold">{src.publisher}</ThemedText>
-                  <ThemedText type="small" themeColor="textSecondary">
-                    {src.title} · {src.dateAccessed}
-                  </ThemedText>
-                </ThemedView>
-              ))}
+              {entry.sources.map((src) => {
+                const row = (
+                  <ThemedView type="backgroundElement" style={styles.sourceRow}>
+                    <ThemedText type="smallBold">{src.publisher}</ThemedText>
+                    <ThemedText type="small" themeColor="textSecondary">
+                      {src.title} · {src.dateAccessed}
+                    </ThemedText>
+                    {src.url && (
+                      <ThemedText type="linkPrimary">{t('detail.visitSource')}</ThemedText>
+                    )}
+                  </ThemedView>
+                );
+                return src.url ? (
+                  <ExternalLink key={src.id} href={asExternal(src.url)} asChild>
+                    <Pressable style={({ pressed }) => pressed && styles.pressed}>{row}</Pressable>
+                  </ExternalLink>
+                ) : (
+                  <View key={src.id}>{row}</View>
+                );
+              })}
             </View>
           )}
 
@@ -82,6 +99,13 @@ export default function EntryScreen() {
                 <ThemedText type="small" themeColor="textSecondary">
                   {resolveLocalized(entry.license.attribution, contentLang)}
                 </ThemedText>
+              )}
+              {entry.license.licenseUrl && (
+                <ExternalLink href={asExternal(entry.license.licenseUrl)} asChild>
+                  <Pressable style={({ pressed }) => pressed && styles.pressed}>
+                    <ThemedText type="linkPrimary">{t('detail.viewLicense')}</ThemedText>
+                  </Pressable>
+                </ExternalLink>
               )}
             </ThemedView>
           </View>
@@ -95,18 +119,31 @@ export default function EntryScreen() {
   );
 
   function RelatedBlock({ entryIds }: { entryIds: string[] }) {
-    const related = useResource(
-      () =>
-        Promise.all(entryIds.map((id) => client.getEntry(id, contentLang, { staleOk: true }))),
-      [client, contentLang, entryIds.join('|')],
+    const related = useResource(async () => {
+      const entries = await Promise.all(
+        entryIds.map((id) => client.getEntry(id, contentLang, { staleOk: true })),
+      );
+      // Resolve each related entry's cover so the rail shows real thumbnails
+      // once media lands (Phase 2); placeholders remain the graceful fallback.
+      return Promise.all(
+        entries.map(async (entry) => ({
+          entry,
+          imageUri:
+            entry?.coverAssetId != null
+              ? await client.resolveAsset(entry.coverAssetId, { staleOk: true })
+              : null,
+        })),
+      );
+    }, [client, contentLang, entryIds.join('|')]);
+    const items = (related.data ?? []).filter(
+      (item): item is { entry: EntryValue; imageUri: string | null } => item.entry !== null,
     );
-    const items = (related.data ?? []).filter((e): e is EntryValue => e !== null);
     if (items.length === 0) return null;
     return (
       <View style={styles.block}>
         <ThemedText type="subtitle">{t('detail.related')}</ThemedText>
         <View style={styles.stack}>
-          {items.map((rel) => (
+          {items.map(({ entry: rel, imageUri }) => (
             <Link
               key={rel.id}
               href={{ pathname: '/entry/[slug]', params: { slug: rel.slug } }}
@@ -114,7 +151,8 @@ export default function EntryScreen() {
               <EntryCard
                 variant="row"
                 title={resolveLocalized(rel.title, contentLang) ?? rel.slug}
-                imageUri={null}
+                subtitle={resolveLocalized(rel.summary, contentLang)}
+                imageUri={imageUri}
                 onPress={() => {}}
               />
             </Link>
@@ -122,6 +160,22 @@ export default function EntryScreen() {
         </View>
       </View>
     );
+  }
+}
+
+/** Casts a dynamic URL to expo-router's typed Href for ExternalLink. */
+function asExternal(url: string): Parameters<typeof ExternalLink>[0]['href'] {
+  return url as never;
+}
+
+/** Formats an ISO date for the meta row; falls back to the raw value. */
+function formatDate(iso: string, lang: string): string {
+  try {
+    return new Intl.DateTimeFormat(lang === 'km' ? 'km-KH' : lang === 'vi' ? 'vi-VN' : 'en-GB', {
+      dateStyle: 'medium',
+    }).format(new Date(iso));
+  } catch {
+    return iso;
   }
 }
 
@@ -137,4 +191,5 @@ const styles = StyleSheet.create({
   block: { gap: Spacing.two },
   stack: { gap: Spacing.two },
   sourceRow: { borderRadius: Spacing.two, padding: Spacing.three, gap: Spacing.half },
+  pressed: { opacity: 0.7 },
 });
